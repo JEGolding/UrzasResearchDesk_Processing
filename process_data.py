@@ -127,7 +127,7 @@ def get_tournament_files(base_path='../MTGODecklistCache/Tournaments', lookback_
     
     return matching_files
 
-def process_mtg_data(lookback_days=365, fmt='Modern'):
+def process_mtg_data(lookback_days=182, fmt='Modern'):
     """Process MTG tournament data and save results for dashboard consumption."""
 
     print(f'Processing {fmt} tournament files')

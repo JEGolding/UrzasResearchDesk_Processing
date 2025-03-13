@@ -32,14 +32,16 @@ jobs:
         
     - name: Process data
       run: |
-        echo "running process_data.py Standard"
-        python process_data.py Standard
-        echo "zipping"
-        zip Standard.zip processed_data/*
-        rm processed_data/*
+        ./process.sh
+        # echo "running process_data.py Standard"
+        # python process_data.py Standard
+        # echo "zipping"
+        # zip Standard.zip processed_data/*
+        # rm processed_data/*
 
     - name: Commit files
       run: |
+        git pull
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
         git commit -a -m "Add changes Standard $(date)"
@@ -50,92 +52,94 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: ${{ github.ref }}
 
-  update-pioneer:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-      with:
-        persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal access token.
-        fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
+  # update-pioneer:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v4
+  #     with:
+  #       persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal access token.
+  #       fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
       
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.9.15'
+  #   - name: Set up Python
+  #     uses: actions/setup-python@v2
+  #     with:
+  #       python-version: '3.9.15'
         
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        mkdir processed_data
+  #   - name: Install dependencies
+  #     run: |
+  #       python -m pip install --upgrade pip
+  #       pip install -r requirements.txt
+  #       mkdir processed_data
 
-    - name: Clone MTGODecklistCache
-      run: |
-        cd ../
-        git clone https://github.com/Badaro/MTGODecklistCache.git --depth 1
-        cd -
+  #   - name: Clone MTGODecklistCache
+  #     run: |
+  #       cd ../
+  #       git clone https://github.com/Badaro/MTGODecklistCache.git --depth 1
+  #       cd -
         
-    - name: Process data
-      run: |
-        echo "running process_data.py Pioneer"
-        python process_data.py Pioneer
-        echo "zipping"
-        zip Pioneer.zip processed_data/*
-        rm processed_data/*
+  #   - name: Process data
+  #     run: |
+  #       echo "running process_data.py Pioneer"
+  #       python process_data.py Pioneer
+  #       echo "zipping"
+  #       zip Pioneer.zip processed_data/*
+  #       rm processed_data/*
 
-    - name: Commit files
-      run: |
-        git config --local user.email "github-actions[bot]@users.noreply.github.com"
-        git config --local user.name "github-actions[bot]"
-        git commit -a -m "Add changes Pioneer $(date)"
+  #   - name: Commit files
+  #     run: |
+  #       git pull
+  #       git config --local user.email "github-actions[bot]@users.noreply.github.com"
+  #       git config --local user.name "github-actions[bot]"
+  #       git commit -a -m "Add changes Pioneer $(date)"
 
-    - name: Push changes
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: ${{ github.ref }}
+  #   - name: Push changes
+  #     uses: ad-m/github-push-action@master
+  #     with:
+  #       github_token: ${{ secrets.GITHUB_TOKEN }}
+  #       branch: ${{ github.ref }}
 
-  update-modern:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-      with:
-        persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal access token.
-        fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
+  # update-modern:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v4
+  #     with:
+  #       persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal access token.
+  #       fetch-depth: 0 # otherwise, there would be errors pushing refs to the destination repository.
       
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.9.15'
+  #   - name: Set up Python
+  #     uses: actions/setup-python@v2
+  #     with:
+  #       python-version: '3.9.15'
         
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-        mkdir processed_data
+  #   - name: Install dependencies
+  #     run: |
+  #       python -m pip install --upgrade pip
+  #       pip install -r requirements.txt
+  #       mkdir processed_data
 
-    - name: Clone MTGODecklistCache
-      run: |
-        cd ../
-        git clone https://github.com/Badaro/MTGODecklistCache.git --depth 1
-        cd -
+  #   - name: Clone MTGODecklistCache
+  #     run: |
+  #       cd ../
+  #       git clone https://github.com/Badaro/MTGODecklistCache.git --depth 1
+  #       cd -
         
-    - name: Process data
-      run: |
-        echo "running process_data.py Modern"
-        python process_data.py Modern
-        echo "zipping"
-        zip Modern.zip processed_data/*
-        rm processed_data/*
+  #   - name: Process data
+  #     run: |
+  #       echo "running process_data.py Modern"
+  #       python process_data.py Modern
+  #       echo "zipping"
+  #       zip Modern.zip processed_data/*
+  #       rm processed_data/*
 
-    - name: Commit files
-      run: |
-        git config --local user.email "github-actions[bot]@users.noreply.github.com"
-        git config --local user.name "github-actions[bot]"
-        git commit -a -m "Add changes Modern $(date)"
+  #   - name: Commit files
+  #     run: |
+  #       git pull
+  #       git config --local user.email "github-actions[bot]@users.noreply.github.com"
+  #       git config --local user.name "github-actions[bot]"
+  #       git commit -a -m "Add changes Modern $(date)"
 
-    - name: Push changes
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: ${{ github.ref }}
+  #   - name: Push changes
+  #     uses: ad-m/github-push-action@master
+  #     with:
+  #       github_token: ${{ secrets.GITHUB_TOKEN }}
+  #       branch: ${{ github.ref }}
