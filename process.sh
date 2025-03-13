@@ -12,7 +12,7 @@ for i in "${formats[@]}"; do
     echo "running process_data.py $i"
     python process_data.py $i
     echo "zipping"
-    zip $i/processed_data.zip _$i/*
+    zip $i.zip _$i/*
     rm _$i/*
 done
 
