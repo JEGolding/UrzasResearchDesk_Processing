@@ -32,7 +32,7 @@ jobs:
         
     - name: Process data
       run: |
-        ./bundle.sh
+        ./process.sh
 
     - name: Commit files
       run: |
