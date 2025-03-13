@@ -1,4 +1,4 @@
-name: Update MTG Data
+name: Update Modern
 on:
   schedule:
     - cron: '0 0 * * *'  # Run daily
