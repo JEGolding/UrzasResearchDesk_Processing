@@ -329,7 +329,7 @@ def process_mtg_data(lookback_days=365, fmt='Modern'):
     # print('Clusters analysed')
     
     # Create output directory
-    Path(f'_{fmt}').mkdir(exist_ok=True)
+    Path('processed_data').mkdir(exist_ok=True)
 
     # Generate and save metadata
     metadata = {
@@ -339,7 +339,7 @@ def process_mtg_data(lookback_days=365, fmt='Modern'):
         # 'num_clusters': len(set(cluster_labels)) - (1 if -1 in cluster_labels else 0)
     }
     
-    with open(f'_{fmt}/metadata.json', 'w') as f:
+    with open(f'processed_data/metadata.json', 'w') as f:
         json.dump(metadata, f)
     
     df['Date'] = df['Date'].astype(str)
@@ -351,18 +351,18 @@ def process_mtg_data(lookback_days=365, fmt='Modern'):
         'feature_names': vectorizer.get_feature_names_out().tolist()
     }
     
-    with open(f'_{fmt}/deck_data.json', 'w') as f:
+    with open(f'processed_data/deck_data.json', 'w') as f:
         json.dump(output_data, f)
     
     # Save matrices
-    scipy.sparse.save_npz(f'_{fmt}/card_vectors.npz', X)
+    scipy.sparse.save_npz(f'processed_data/card_vectors.npz', X)
     # np.save('processed_data/umap_embedding.npy', X_umap)
     
     # Save transformers data
     vectorizer_data = {
         'vocabulary': vectorizer.vocabulary_
     }
-    with open(f'_{fmt}/vectorizer.json', 'w') as f:
+    with open(f'processed_data/vectorizer.json', 'w') as f:
         json.dump(vectorizer_data, f)
         
     # iwt_data = {
