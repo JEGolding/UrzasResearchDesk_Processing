@@ -27,7 +27,7 @@ jobs:
     - name: Clone MTGODecklistCache
       run: |
         cd ../
-        git clone https://github.com/Badaro/MTGODecklistCache.git --depth 0
+        git clone https://github.com/Badaro/MTGODecklistCache.git --depth 1
         cd -
         
     - name: Process data
@@ -72,7 +72,7 @@ jobs:
     - name: Clone MTGODecklistCache
       run: |
         cd ../
-        git clone https://github.com/Badaro/MTGODecklistCache.git --depth 0
+        git clone https://github.com/Badaro/MTGODecklistCache.git --depth 1
         cd -
         
     - name: Process data
@@ -117,7 +117,7 @@ jobs:
     - name: Clone MTGODecklistCache
       run: |
         cd ../
-        git clone https://github.com/Badaro/MTGODecklistCache.git --depth 0
+        git clone https://github.com/Badaro/MTGODecklistCache.git --depth 1
         cd -
         
     - name: Process data
