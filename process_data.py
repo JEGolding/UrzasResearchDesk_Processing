@@ -223,7 +223,7 @@ def process_mtg_data(lookback_days=182, fmt='Modern'):
             # Set date from path if missing
             deck_df['Date'] = f'{path.parent.parent.parent.name}-{path.parent.parent.name}-{path.parent.name}'
             
-            df = pd.concat([df['Deck', 'Player', 'Wins', 'Losses', 'Date', 'Tournament', 'Invalid_WR'], deck_df], ignore_index=True)
+            df = pd.concat([df[['Deck', 'Player', 'Wins', 'Losses', 'Date', 'Tournament', 'Invalid_WR']], deck_df], ignore_index=True)
         except Exception as e:
             print(path)
             raise e
