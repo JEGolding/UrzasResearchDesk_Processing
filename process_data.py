@@ -234,6 +234,7 @@ def process_mtg_data(lookback_days=182, fmt='Modern'):
         raise ValueError('No data was found in the specified files.')
     
     # Convert dates and sort
+    #
     df['Date'] = pd.to_datetime(df['Date'])
     df = df.sort_values(by='Date')
 
@@ -242,12 +243,21 @@ def process_mtg_data(lookback_days=182, fmt='Modern'):
     print(f'deck data loaded, shape={df.shape}')
     print(f'Invalid win rates: shape=({df["Invalid_WR"].sum()})')
 
-    # # Load card data
-    # with open('../AtomicCards.json', 'r') as f:
-    #     j = json.load(f)['data']
-    # card_list = j.keys()
+    # Load card data
+    #
+    with open('../AtomicCards.json', 'r') as f:
+        j = json.load(f)['data']
 
-    # print(f'card data loaded, shape={len(card_list)}')
+    # Oracle Id look up for card hovering.
+    #
+    oracleid_lookup = dict()
+    for k, v in list(j.items()):
+        if not v[0].get('isFunny'):
+            oracleid_lookup[k] = v[0]['identifiers']['scryfallOracleId']  
+            
+            # If we have a split card, also add the front name for robust behavior
+            if '//' in k:
+                oracleid_lookup[k.split('//')[0].strip()] = v[0]['identifiers']['scryfallOracleId']
     
     # Vectorize decks
     def merge_analyzer(deck):
@@ -296,6 +306,9 @@ def process_mtg_data(lookback_days=182, fmt='Modern'):
     
     with open(f'processed_data/deck_data.json', 'w') as f:
         json.dump(output_data, f)
+
+    with open(f'processed_data/card_data.json', 'w') as f:
+        json.dump(oracleid_lookup, f)
     
     # Save matrices
     scipy.sparse.save_npz(f'processed_data/card_vectors.npz', X)

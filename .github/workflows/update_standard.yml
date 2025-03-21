@@ -31,10 +31,11 @@ jobs:
         pip install -r requirements.txt
         mkdir processed_data
 
-    - name: Clone MTGODecklistCache
+    - name: Clone MTGODecklistCache and AtomicCards.json
       run: |
         cd ../
         git clone https://github.com/Badaro/MTGODecklistCache.git --depth 1
+        curl https://mtgjson.com/api/v5/AtomicCards.json > AtomicCards.json
         cd -
         
     - name: Process data
